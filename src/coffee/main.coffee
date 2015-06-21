@@ -1,10 +1,14 @@
 RecordRTC = require("recordrtc")
-recorder = RecordRTC(mediaStream, { type: 'audio'})
 navigator.getUserMedia  = navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia
 
+navigator.getUserMedia({audio:true,video:false},
+  (mediaStream) ->
+    console.log mediaStream
+    recorder = RecordRTC(mediaStream)
+  ,() -> )
 
 shifter = require("pitch-shift")(
   onData = (frame) ->

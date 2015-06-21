@@ -1,14 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function() {
-  var RecordRTC, onData, onTune, recorder, shifter;
+  var RecordRTC, onData, onTune, shifter;
 
   RecordRTC = require("recordrtc");
 
-  recorder = RecordRTC(mediaStream, {
-    type: 'audio'
-  });
-
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+  navigator.getUserMedia({
+    audio: true,
+    video: false
+  }, function(mediaStream) {
+    var recorder;
+    console.log(mediaStream);
+    return recorder = RecordRTC(mediaStream);
+  }, function() {});
 
   shifter = require("pitch-shift")(onData = function(frame) {
     return console.log(frame);

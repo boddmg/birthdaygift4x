@@ -1,13 +1,18 @@
 (function() {
-  var RecordRTC, onData, onTune, recorder, shifter;
+  var RecordRTC, onData, onTune, shifter;
 
   RecordRTC = require("recordrtc");
 
-  recorder = RecordRTC(mediaStream, {
-    type: 'audio'
-  });
-
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+  navigator.getUserMedia({
+    audio: true,
+    video: false
+  }, function(mediaStream) {
+    var recorder;
+    console.log(mediaStream);
+    return recorder = RecordRTC(mediaStream);
+  }, function() {});
 
   shifter = require("pitch-shift")(onData = function(frame) {
     return console.log(frame);
