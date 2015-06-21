@@ -13,8 +13,7 @@ var uglify = require('gulp-uglify');
 var paths = {
   coffee: ['./src/coffee/*.coffee'],
   static: ['./src/html/*.html', './src/css/*.css'],
-  dstJsDir: "./dist/js/",
-  distDir: "./dist/",
+  distDir: "./",
   mainHtml: "./src/html/index.html"
 };
 
@@ -29,7 +28,7 @@ gulp.task('watch', function(){
     gutil.log('Dist ' + changedPaths.distDir);
     if (changedPaths.srcPath.match("index.html") != null) {
       gulp.src(changedPaths.srcPath)
-        .pipe(gulp.dest("./dist/"));
+        .pipe(gulp.dest(paths.distDir));
     }else{
     gulp.src(changedPaths.srcPath)
       .pipe(gulp.dest(changedPaths.distDir));
@@ -57,9 +56,9 @@ gulp.task('minify', function() {
 
 gulp.task('copy-static', function(){
   gulp.src(paths.static[1])
-    .pipe(gulp.dest("./dist/css/"));
+    .pipe(gulp.dest(paths.distDir + "css/"));
   gulp.src(paths.mainHtml)
-    .pipe(gulp.dest("./dist/"));
+    .pipe(gulp.dest(paths.distDir));
 })
 
 
